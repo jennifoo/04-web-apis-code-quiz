@@ -42,6 +42,8 @@ var question4 =
     correct: ["Arrays"]
     };
 
+
+
 var counter = 0;
 var questionGroup = [question1, question2, question3, question4];
 var timeLeft = 900;
@@ -50,7 +52,9 @@ var $timeRemaining = document.querySelector("#time-remaining");
 var $groupSet = document.querySelector("#group-set");
 var $comment = document.querySelector("#comment");
 
-function feedFunction1 (inputQuestionGroup, inputAnswerGroup){
+function feedFunction1 (inputQuestionGroup){
+
+
   // Generates Question and List of Answers onto Page
         $groupSet.textContent = "";
         var dlength = inputQuestionGroup.answers.length;
@@ -61,6 +65,7 @@ function feedFunction1 (inputQuestionGroup, inputAnswerGroup){
 
         for (var c = 0; c < dlength; c++){
             var make = document.createElement("li");
+            make.setAttribute("class", "answer");
             make.textContent = inputQuestionGroup.answers[c];
             $groupSet.appendChild(make);
 
@@ -75,9 +80,9 @@ function feedFunction1 (inputQuestionGroup, inputAnswerGroup){
         }
 
         for (var c = 0; c < 1; c++){
-
             var makeCorrect = document.createElement("li");
             makeCorrect.textContent = inputQuestionGroup.correct[c];
+            makeCorrect.setAttribute("class", "answer");
             $groupSet.appendChild(makeCorrect);
 
             // Correct Answers Event Listener
@@ -96,6 +101,7 @@ $startButton.addEventListener("click", function(event) {
     startCountdown();
     // Display First Question
     feedFunction1(questionGroup[counter]);
+    $startButton.setAttribute("style", "display: none");
 });
 
 // Count Down
@@ -113,9 +119,11 @@ function startCountdown(minus) {
 // Show Next Question & Answer Set
 $groupSet.addEventListener("click", function(event){
     event.preventDefault();
-    if (event.target.matches("li")){
+    if (event.target.matches(".answer")){
         counter++;
         feedFunction1(questionGroup[counter]);
         timeLeft +1000;
+        console.log(counter);
+
     };
 });
